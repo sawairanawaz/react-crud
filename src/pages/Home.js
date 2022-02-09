@@ -12,7 +12,7 @@ import {
 import { Link } from "react-router-dom";
 const Home = () => {
   const deleteUser = async (id) => {
-    if (window.confirm("Are you sure to delete?")) {
+    if (id) {
       const userDoc = doc(db, "users", id);
       await deleteDoc(userDoc);
     }
@@ -25,7 +25,6 @@ const Home = () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
-
     getUsers();
   }, []);
   return (
@@ -33,7 +32,7 @@ const Home = () => {
       <table>
         <thead>
           <tr>
-            <th>S#</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Age</th>
             <th>Action</th>
@@ -47,7 +46,7 @@ const Home = () => {
                 <td>{data.name}</td>
                 <td>{data.age}</td>
                 <td>
-                  <Link to={`/AddEdit/${data.id}`}>
+                  <Link to={`/add/${data.id}`}>
                     <button> Edit</button>
                   </Link>
                   <button
@@ -56,11 +55,9 @@ const Home = () => {
                     }}
                   >
                     {" "}
-                    Delete User
+                    Delete
                   </button>
-                  <Link to={`/view/${data.id}`}>
-                    <button> View</button>
-                  </Link>
+                  
                 </td>
               </tr>
             );

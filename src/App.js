@@ -10,12 +10,11 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Header/>
-        <ToastContainer className="toast"></ToastContainer>
+        {/* <ToastContainer className="toast"></ToastContainer> */}
         <Route exact path='/' component={Home}/>
         <Route path='/add' component={AddData}/>
       </div>
     </BrowserRouter>
   );
 }
-
 export default App;

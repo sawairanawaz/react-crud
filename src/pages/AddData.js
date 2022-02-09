@@ -1,5 +1,5 @@
 import React from "react";
-import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -46,15 +46,15 @@ const AddData = () => {
 
         setTimeout(() => history.push("/"), 500);
       } else {
-        const docRefrence = doc(userCollection, id);
-        await setDoc(docRefrence, { name: name, age: Number(age) })
-          .catch((err) => {
-            toast.error(err);
+        const userRef = doc(userCollection, id)
+        try{
+          await updateDoc(userRef, {
+            name: name,
+            age: Number(age)
           })
-          .then(() => {
-            toast.success("contact updated");
-          });
-
+        } catch (err) {
+          alert(err)
+        }
         setTimeout(() => history.push("/"), 500);
       }
     }
